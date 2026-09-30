@@ -1,0 +1,74 @@
+<div class="task-list">
+
+  <h2>Tasks</h2>
+
+  @if (tasks.length === 0) {
+
+  <div class="empty-state">
+    <p>No tasks available.</p>
+    <p>Add a new task above to get started.</p>
+  </div>
+
+  } @else {
+
+  <div class="tasks">
+
+    @for (task of tasks; track $index) {
+
+    <div
+      class="task-card"
+      [class.completed]="task.completed"
+      [class.priority-low]="task.priority === 'Low'"
+      [class.priority-medium]="task.priority === 'Medium'"
+      [class.priority-high]="task.priority === 'High'">
+
+      <div class="task-content">
+
+        <div class="task-title">
+          {{ task.title }}
+        </div>
+
+        <div class="task-details">
+
+              <span
+                class="priority-badge"
+                [class.low]="task.priority === 'Low'"
+                [class.medium]="task.priority === 'Medium'"
+                [class.high]="task.priority === 'High'">
+
+                {{ task.priority }}
+
+              </span>
+
+          @if (task.completed) {
+          <span class="completed-label">
+                  ✓ Completed
+                </span>
+          }
+
+        </div>
+
+      </div>
+
+      <button
+        type="button"
+        [disabled]="task.completed"
+        (click)="toggleTask($index)">
+
+        @if (task.completed) {
+        Completed
+        } @else {
+        Mark Completed
+        }
+
+      </button>
+
+    </div>
+
+    }
+
+  </div>
+
+  }
+
+</div>
